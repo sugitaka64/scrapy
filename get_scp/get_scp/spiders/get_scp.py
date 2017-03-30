@@ -1,27 +1,30 @@
-# coding: utf-8
-from datetime import datetime
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
-import scrapy
+"""get scp."""
+
 import re
+import scrapy
 
-# SitemapSpiderを継承する
-class CNETSpider(scrapy.spiders.SitemapSpider):
-    name = "cnet"
-    allowed_domains = ["ja.scp-wiki.net"]
+class GetScpSpider(scrapy.spiders.SitemapSpider):
+    """scp spider."""
+
+    name = 'get_scp'
+    allowed_domains = ['ja.scp-wiki.net']
+
+    # design sitemap.xml
     sitemap_urls = (
-        # ここにはrobots.txtのURLを指定してもよいが、
-        # 無関係なサイトマップが多くあるので、今回はサイトマップのURLを直接指定する。
         'http://ja.scp-wiki.net/sitemap_page_1.xml',
     )
     sitemap_rules = (
-        # 正規表現 '/news/' にマッチするページをparse_news()メソッドでパースする
-        #(r'/scp-[0-9]+$', 'parse_news'),
-        #(r'/scp-[0-9]+-jp$', 'parse_news'),
-        (r'/scp-2521$', 'parse_news'),
-        (r'/scp-055$', 'parse_news'),
+        # (r'/scp-[0-9]+$', 'parse_scp'),
+        # (r'/scp-[0-9]+-jp$', 'parse_scp'),
+        (r'/scp-2521$', 'parse_scp'),
+        (r'/scp-055$', 'parse_scp'),
     )
 
-    def parse_news(self, response):
+    def parse_scp(self, response):
+        """parse scp."""
         try:
             page_content = ''.join(response.css('#page-content ::text').extract())
             item_no = re.search('アイテム番号:.*\n?', page_content)\
@@ -34,13 +37,10 @@ class CNETSpider(scrapy.spiders.SitemapSpider):
                 .group(0).strip().replace('\n', '')
 
             yield {
-                # h1要素の文字列を取得する
                 'item_no': item_no,
                 'object_class': object_class,
                 'protocol': protocol,
                 'description': description,
-                # div[itemprop="articleBody"]の直下のp要素以下にある全要素から文字列を取得して結合する
-                #'body': ''.join(response.css('div[itemprop="articleBody"] > p ::text').extract()),
             }
         except AttributeError:
             pass

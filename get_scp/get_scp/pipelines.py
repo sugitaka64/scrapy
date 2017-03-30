@@ -7,7 +7,7 @@
 
 import pymysql
 
-class HelloscrapyPipeline(object):
+class GetScpPipeline(object):
     def process_item(self, item, spider):
         conn = pymysql.connect(
             host='127.0.0.1',
@@ -21,7 +21,7 @@ class HelloscrapyPipeline(object):
 
         sql = 'INSERT INTO ' \
               'scrapy.scp(item_no, object_class, protocol, description) ' \
-              'VALUES (%s, %s, %s, %s)'
+              'VALUES (%s, %s, %s, %s);'
         try:
             cur.execute(
                 sql,
