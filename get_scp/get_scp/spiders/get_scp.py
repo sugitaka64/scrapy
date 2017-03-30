@@ -17,10 +17,10 @@ class GetScpSpider(scrapy.spiders.SitemapSpider):
         'http://ja.scp-wiki.net/sitemap_page_1.xml',
     )
     sitemap_rules = (
-        # (r'/scp-[0-9]+$', 'parse_scp'),
-        # (r'/scp-[0-9]+-jp$', 'parse_scp'),
-        (r'/scp-2521$', 'parse_scp'),
-        (r'/scp-055$', 'parse_scp'),
+        (r'/scp-[0-9]+$', 'parse_scp'),
+        (r'/scp-[0-9]+-jp$', 'parse_scp'),
+        # (r'/scp-2521$', 'parse_scp'),
+        # (r'/scp-055$', 'parse_scp'),
     )
 
     def parse_scp(self, response):
