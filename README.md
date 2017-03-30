@@ -30,6 +30,11 @@ $ cd scrapy
 $ pip install -U -r requirements.txt
 ```
 
+`get_scp/get_scp/pipelines.py`の13〜18行目にデータベースの設定を記載してください。
+
+ログレベルの設定は`get_scp/get_scp/settings.py`の`LOG_LEVEL`を修正してください。
+デフォルトでは`WARN`以上のログが標準出力に出力されます。
+
 ## 使用方法
 
 ```shell-session
