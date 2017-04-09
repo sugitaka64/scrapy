@@ -19,7 +19,13 @@ mysql> CREATE TABLE scp (
     description TEXT NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+mysql> CREATE TABLE morphological_analysis (
+    id INT NOT NULL AUTO_INCREMENT,
+    item_no VARCHAR(16) NOT NULL,
+    word VARCHAR(32) NOT NULL,
+    description VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
 本プログラムをcloneし、ライブラリをインストールしてください。
